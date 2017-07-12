@@ -14,14 +14,7 @@ pub mod mt64;
 /// Generates a `MTRng` object by seeding with bytes from `OsRng`
 pub fn mersenne() -> MTRng {
     use rand::{Rng, OsRng};
-    const BYTES: usize = 100;
 
     let mut os = OsRng::new().unwrap();
-
-    let mut seed = [0u64; BYTES];
-    for i in 0..BYTES {
-        seed[i] = os.next_u64();
-    }
-
-    MTRng::new_array(&seed)
+    MTRng::new(os.next_u64())
 }
